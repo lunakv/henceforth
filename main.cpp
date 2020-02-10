@@ -1,6 +1,5 @@
-#include <iostream>
 #include "Tokenizer.hpp"
-
+#include "Core.hpp"
 using namespace std;
 
 int main() {

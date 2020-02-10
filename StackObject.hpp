@@ -5,6 +5,8 @@
 #ifndef HENCEFORTH_STACKOBJECT_HPP
 #define HENCEFORTH_STACKOBJECT_HPP
 
+#include <string>
+
 struct StackObject {
     int val;
     std::string str;

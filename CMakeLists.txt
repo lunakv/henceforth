@@ -3,4 +3,4 @@ project(henceforth)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(henceforth main.cpp Tokenizer.cpp Tokenizer.hpp StackObject.hpp StackObject.cpp Definition.cpp Definition.hpp CoreDefinitions.hpp)
+add_executable(henceforth main.cpp Tokenizer.cpp Tokenizer.hpp StackObject.hpp StackObject.cpp Definition.hpp ArithmeticDefinitions.hpp ArithmeticDefinitions.cpp Core.cpp Core.hpp)
