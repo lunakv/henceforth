@@ -1,7 +1,9 @@
 #include <sstream>
 #include "Tokenizer.hpp"
 
-std::string Tokenizer::getUntil(std::istream &in, char c) {
+Tokenizer::Tokenizer(std::istream &in) : in(in) {}
+
+std::string Tokenizer::getUntil(char c) {
     std::string res;
     for (int r = in.get(); r != EOF && r != c; r = in.get()) {
         res += static_cast<char>(r);
@@ -9,7 +11,7 @@ std::string Tokenizer::getUntil(std::istream &in, char c) {
     return res;
 }
 
-std::string Tokenizer::getToken(std::istream &in) {
+std::string Tokenizer::getToken() {
     int c = in.peek();
     //skip all whitespace except newline
     while (c != EOF && isspace(c) && c != '\n') {
@@ -31,13 +33,6 @@ std::string Tokenizer::getToken(std::istream &in) {
     return res;
 }
 
-TokenList Tokenizer::getTokensUntil(std::istream &in, std::string s) {
-    TokenList res;
-    for (std::string str = getToken(in); in && str != s; str = getToken(in))
-        res.push_back(str);
-    return res;
-}
-
 bool Tokenizer::isNumeric(std::string token) {
     if (token.empty()) return false;
     size_t i = 0;
@@ -47,8 +42,8 @@ bool Tokenizer::isNumeric(std::string token) {
     return true;
 }
 
-int Tokenizer::getInt(std::string token) {
-    int i;
+int Tokenizer::getInt(const std::string &token) {
+    int i = 0;
     std::stringstream ss(token);
     ss >> i;
     return i;

@@ -1,7 +1,3 @@
-//
-// Created by vaasa on 2/2/20.
-//
-
 #ifndef HENCEFORTH_TOKENIZER_HPP
 #define HENCEFORTH_TOKENIZER_HPP
 
@@ -12,12 +8,13 @@
 using TokenList = std::vector<std::string>;
 
 class Tokenizer {
+    std::istream &in;
 public:
-    std::string getToken(std::istream &in);
-    std::string getUntil(std::istream &in, char c);
-    TokenList getTokensUntil(std::istream &in, std::string s);
+    explicit Tokenizer(std::istream &in);
+    std::string getToken();
+    std::string getUntil(char c);
     bool isNumeric(std::string token);
-    int getInt(std::string token);
+    int getInt(const std::string &token);
 };
 
 #endif //HENCEFORTH_TOKENIZER_HPP
