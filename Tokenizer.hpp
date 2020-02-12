@@ -3,18 +3,16 @@
 
 #include <istream>
 #include <vector>
-#include "StackObject.hpp"
 
-using TokenList = std::vector<std::string>;
-
+// Class for producing word tokens from input
 class Tokenizer {
     std::istream &in;
 public:
-    explicit Tokenizer(std::istream &in);
-    std::string getToken();
-    std::string getUntil(char c);
-    bool isNumeric(std::string token);
-    int getInt(const std::string &token);
+    explicit Tokenizer(std::istream &in) : in(in) {};
+    std::string GetToken();
+    std::string GetUntil(char c);
+    static bool IsNumeric(std::string token);
+    static ptrdiff_t GetNum(const std::string &token);
 };
 
 #endif //HENCEFORTH_TOKENIZER_HPP

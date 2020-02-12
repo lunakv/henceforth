@@ -1,61 +1,69 @@
 #include "ArithmeticDefinitions.hpp"
 
-void BinOp(SStack &s, int(*f)(int,int)) {
+// generic binary arithmetic operation
+void BinOp(Stack &s, ptrdiff_t(*f)(ptrdiff_t,ptrdiff_t)) {
     auto b = s.top(); s.pop();
     auto a = s.top(); s.pop();
-    s.emplace(f(a.val, b.val));
+    s.push(f(a, b));
 }
 
-void Add::Run(SStack &s, RStack &r, int &sp) {
+void Add::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a+b; });
 }
 
-void Sub::Run(SStack &s, RStack &r, int &sp) {
+void Sub::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a-b; });
 }
 
-void Mul::Run(SStack &s, RStack &r, int &sp) {
+void Mul::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a*b; });
 }
 
-void Div::Run(SStack &s, RStack &r, int &sp) {
+void Div::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a/b; });
 }
 
-void Mod::Run(SStack &s, RStack &r, int &sp) {
+void Mod::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a%b; });
 }
 
-void RShift::Run(SStack &s, RStack &r, int &sp) {
+void DivMod::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    auto b = s.top(); s.pop();
+    auto a = s.top(); s.pop();
+    s.push(a % b);
+    s.push(a / b);
+}
+
+void RShift::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a>>b; });
 }
 
-void LShift::Run(SStack &s, RStack &r, int &sp) {
+void LShift::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     BinOp(s, [](auto a, auto b) { return a<<b; });
 }
 
-void Yes::Run(SStack &s, RStack &r, int &sp) {
-    s.emplace(1);
+void Yes::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    s.push(1);
 }
 
-void No::Run(SStack &s, RStack &r, int &sp) {
-    s.emplace(0);
+void No::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    s.push(0);
 }
 
-Const::Const(int c) : c(c) {}
+Const::Const(ptrdiff_t c) : c(c) {}
 
-void Const::Run(SStack &s, RStack &r, int &sp) {
-    s.emplace(c);
+void Const::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    s.push(c);
 }
 
-void More::Run(SStack &s, RStack &r, int &sp) {
-    BinOp(s, [](auto a, auto b) { return (int)(a > b); });
+void More::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a > b); });
 }
 
-void Less::Run(SStack &s, RStack &r, int &sp) {
-    BinOp(s, [](auto a, auto b) { return (int)(a > b); });
+void Less::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a > b); });
 }
 
-void Eq::Run(SStack &s, RStack &r, int &sp) {
-    BinOp(s, [](auto a, auto b) { return (int)(a == b); });
+void Eq::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a == b); });
 }

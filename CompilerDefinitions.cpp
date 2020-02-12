@@ -1,59 +1,53 @@
 #include "CompilerDefinitions.hpp"
 
-void If::Run(SStack &s, RStack &r, int &sp) {
+void If::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     auto a = s.top(); s.pop();
-    if (!a.val) sp = jmp;
+    if (!a) ip = jmp;
 }
 
-void Else::Run(SStack &s, RStack &r, int &sp) {
-    sp = jmp;
+void Else::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    ip = jmp;
 }
 
-void Then::Run(SStack &s, RStack &r, int &sp) {}
+void Then::Run(Stack &s, Stack &r, ptrdiff_t &ip) {}
 
-void Begin::Run(SStack &s, RStack &r, int &sp) {}
+void Begin::Run(Stack &s, Stack &r, ptrdiff_t &ip) {}
 
-void Repeat::Run(SStack &s, RStack &r, int &sp) {
-    sp = jmp;
+void Repeat::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
+    ip = jmp;
 }
 
-void Until::Run(SStack &s, RStack &r, int &sp) {
-    auto x = s.top(); s.pop();
-    if (!x.val)
-        sp = jmp;
-}
-
-void Do::Run(SStack &s, RStack &r, int &sp) {
+void Do::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     auto first = s.top(); s.pop();
     auto limit = s.top(); s.pop();
-    r.emplace(limit);
-    r.emplace(first);
+    r.push(limit);
+    r.push(first);
 }
 
-void Loop::Run(SStack &s, RStack &r, int &sp) {
+void Loop::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     auto index = r.top(); r.pop();
-    ++index.val;
-    if (index.val >= r.top().val)
+    ++index;
+    if (index >= r.top())
         r.pop();
     else {
         r.push(index);
-        sp = jmp;
+        ip = jmp;
     }
 }
 
-void PLoop::Run(SStack &s, RStack &r, int &sp) {
+void PLoop::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     auto index = r.top(); r.pop();
     auto plus = s.top(); s.pop();
-    index.val += plus.val;
-    if (index.val >= r.top().val)
+    index += plus;
+    if (index >= r.top())
         r.pop();
     else {
         r.push(index);
-        sp = jmp;
+        ip = jmp;
     }
 }
 
-void Leave::Run(SStack &s, RStack &r, int &sp) {
+void Leave::Run(Stack &s, Stack &r, ptrdiff_t &ip) {
     r.pop(); r.pop();
-    sp = jmp;
+    ip = jmp;
 }

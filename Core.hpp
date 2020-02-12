@@ -3,10 +3,10 @@
 
 #include <map>
 #include <memory>
+#include "Definition.hpp"
 #include "ArithmeticDefinitions.hpp"
 
-using DefDict = std::map<std::string, std::shared_ptr<Definition>>;
-using DDRef = std::shared_ptr<DefDict>;
+// includes all interpretable word definitions and provides a dictionary linking them to tokens
 DDRef GetCoreDict();
 
 

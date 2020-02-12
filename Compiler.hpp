@@ -7,7 +7,7 @@
 
 class Compiler {
     Tokenizer &t;
-    CStack c;
+    Stack c;
     bool AddCompileWord(std::vector<std::shared_ptr<Definition>> &v, const std::string &token);
     void AddIf(std::vector<std::shared_ptr<Definition>> &v);
     void AddElse(std::vector<std::shared_ptr<Definition>> &v);
@@ -20,7 +20,7 @@ class Compiler {
     void AddLeave(std::vector<std::shared_ptr<Definition>> &v);
 public:
     explicit Compiler(Tokenizer &t);
-    void AddDefinition(DDRef d);
+    void AddDefinition(const DDRef &d);
 };
 
 #endif //HENCEFORTH_COMPILER_HPP
