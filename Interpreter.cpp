@@ -28,7 +28,7 @@ void Interpreter::Run() {
 
 void Interpreter::ExecuteCommand(const string &token) {
     if (dict->count(token)) {
-        ptrdiff_t dummy_ip;
+        size_t dummy_ip(0);
         (*dict)[token]->Run(s, r, dummy_ip);
     }
     else if (Tokenizer::IsNumeric(token)) {

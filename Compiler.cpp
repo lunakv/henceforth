@@ -20,7 +20,6 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     return true;
 }
 
-
 void Compiler::AddDefinition(const DDRef &dict) {
     auto def = make_shared<CustomDefinition>();
     string name = t.GetToken();
@@ -39,8 +38,14 @@ void Compiler::AddDefinition(const DDRef &dict) {
         }
     }
 
+    if (!c.empty()) throw BadDefinition(); // ensure all blocks are properly closed
+
     (*dict)[name] = def;
 }
+
+// items on the control-flow stack are converted between ptrdiff_t and size_t
+// (because we need negative stack values for loop-sys, but vector indices and IP are size_t)
+// this is fine, since no one should really make definitions 2^31 (or even 2^63) words long
 
 void Compiler::AddIf(CustomDefinition &d) {
     c.push(d.size()); // If's position is put on the stack to resolve the jump by Else/Then
@@ -106,6 +111,8 @@ void Compiler::AddLoop(CustomDefinition &d, bool plus) {
     d[res]->Compile(i); // set up (P)Loop's jump to Do's position
 }
 
+// LEAVE needs to find the nearest loop-sys, since it could be called e.g. inside an IF .. THEN
+// block and simply putting its reference on top would pollute the stack
 void Compiler::AddLeave(CustomDefinition &d) {
     Stack tmp;
     for (; c.top() != -1; c.pop()) // find the nearest loop-sys

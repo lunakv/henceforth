@@ -11,8 +11,8 @@ void Stack::pop() {
     s.pop();
 }
 
-void CustomDefinition::Run(Stack &s, Stack &r, ptrdiff_t &sp) const {
-    for (ptrdiff_t i = 0; i < v.size(); ++i) {
+void CustomDefinition::Run(Stack &s, Stack &r, size_t &ip) const {
+    for (size_t i = 0; i < v.size(); ++i) {
         v[i]->Run(s, r, i);
     }
 }
