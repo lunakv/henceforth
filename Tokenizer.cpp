@@ -1,37 +1,20 @@
 #include <sstream>
+#include <limits>
 #include "Tokenizer.hpp"
 
 // returns a string containing all chars from current position to next occurrence of c (non-inclusive)
 std::string Tokenizer::GetUntil(char c) {
     std::string res;
-    for (ptrdiff_t r = in.get(); r != EOF && r != c; r = in.get()) {
-        res += static_cast<char>(r);
+    for (int r = in.get(); r != EOF && r != c; r = in.get()) {
+        res += toupper(static_cast<char>(r));
     }
     return res;
 }
 
-// returns the next whitespace-separated word from input, or "\n" if end-of-line was reached
+// returns the next whitespace-separated word from input
 std::string Tokenizer::GetToken() {
-    ptrdiff_t c = in.peek();
-    //skip all whitespace except newline
-    while (c != EOF && isspace(c) && c != '\n') {
-        in.get();
-        c = in.peek();
-    }
-
-    // newlines are a special token for ptrdiff_terpreter
-    if (c == '\n') {
-        in.get();
-        return "\n";
-    }
-
     std::string res;
-    // get all chars until a whitespace
-    while (c != EOF && !isspace(c)) {
-        res += static_cast<char>(c);
-        in.get();
-        c = in.peek();
-    }
+    in >> res;
     return res; // returns empty string once input ends
 }
 
@@ -49,4 +32,8 @@ ptrdiff_t Tokenizer::GetNum(const std::string &token) {
     std::stringstream ss(token);
     ss >> i;
     return i;
+}
+
+void Tokenizer::SkipLine() {
+    in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

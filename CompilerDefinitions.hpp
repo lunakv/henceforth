@@ -47,7 +47,7 @@ public:
     void Run(Stack &s, Stack &r, ptrdiff_t &ip) const override;
 };
 class Recurse : public Definition {
-    const Definition& def;
+    const Definition& def;  // a reference is used, since shared_ptr would cause a cyclic dependency
 public:
     explicit Recurse(const Definition& def) : def(def) {}
     void Run(Stack &s, Stack &r, ptrdiff_t &ip) const override;

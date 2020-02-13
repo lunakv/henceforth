@@ -1,7 +1,6 @@
 #include "Compiler.hpp"
+#include "Exceptions.hpp"
 using namespace std;
-
-Compiler::Compiler(Tokenizer &t) : t(t) {}
 
 bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     if (token == "IF") AddIf(d);
@@ -36,12 +35,9 @@ void Compiler::AddDefinition(const DDRef &dict) {
             def->v.push_back(move(con));
         }
         else if (!AddCompileWord(*def, token)) {
-            throw exception(); // Unknown token
+            throw UnknownWord();
         }
     }
-
-    if (token.empty())
-        throw exception(); // end of stream reached before end of definition
 
     (*dict)[name] = def;
 }

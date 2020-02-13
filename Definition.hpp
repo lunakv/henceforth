@@ -6,7 +6,16 @@
 #include <memory>
 #include <map>
 
-using Stack = std::stack<ptrdiff_t>;
+// stack wrapper that throws exceptions on underflow
+class Stack {
+    std::stack<ptrdiff_t> s;
+public:
+    ptrdiff_t & top();
+    void pop();
+    void push(const ptrdiff_t &val) { s.push(val); }
+    void push(ptrdiff_t &&val) { s.push(val); }
+    [[nodiscard]] bool empty() const { return s.empty(); }
+};
 
 // Abstract class for defining word semantics
 class Definition {

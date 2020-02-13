@@ -21,7 +21,7 @@ class Compiler {
     void AddPrintStr(CustomDefinition &d);
     void AddRecurse(CustomDefinition &d);
 public:
-    explicit Compiler(Tokenizer &t);
+    explicit Compiler(Tokenizer &t) : t(t) {};
     void AddDefinition(const DDRef &dict);
 };
 

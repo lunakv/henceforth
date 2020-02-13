@@ -11,6 +11,7 @@ public:
     explicit Tokenizer(std::istream &in) : in(in) {};
     std::string GetToken();
     std::string GetUntil(char c);
+    void SkipLine();
     static bool IsNumeric(std::string token);
     static ptrdiff_t GetNum(const std::string &token);
 };
