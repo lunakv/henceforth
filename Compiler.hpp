@@ -8,19 +8,21 @@
 class Compiler {
     Tokenizer &t;
     Stack c;
-    bool AddCompileWord(std::vector<std::shared_ptr<Definition>> &v, const std::string &token);
-    void AddIf(std::vector<std::shared_ptr<Definition>> &v);
-    void AddElse(std::vector<std::shared_ptr<Definition>> &v);
-    void AddThen(std::vector<std::shared_ptr<Definition>> &v);
-    void AddBegin(std::vector<std::shared_ptr<Definition>> &v);
-    void AddRepeat(std::vector<std::shared_ptr<Definition>> &v);
-    void AddWhile(std::vector<std::shared_ptr<Definition>> &v);
-    void AddDo(std::vector<std::shared_ptr<Definition>> &v);
-    void AddLoop(std::vector<std::shared_ptr<Definition>> &v, bool plus);
-    void AddLeave(std::vector<std::shared_ptr<Definition>> &v);
+    bool AddCompileWord(CustomDefinition &d, const std::string &token);
+    void AddIf(CustomDefinition &d);
+    void AddElse(CustomDefinition &d);
+    void AddThen(CustomDefinition &d);
+    void AddBegin(CustomDefinition &d);
+    void AddRepeat(CustomDefinition &d);
+    void AddWhile(CustomDefinition &d);
+    void AddDo(CustomDefinition &d);
+    void AddLoop(CustomDefinition &d, bool plus);
+    void AddLeave(CustomDefinition &d);
+    void AddPrintStr(CustomDefinition &d);
+    void AddRecurse(CustomDefinition &d);
 public:
     explicit Compiler(Tokenizer &t);
-    void AddDefinition(const DDRef &d);
+    void AddDefinition(const DDRef &dict);
 };
 
 #endif //HENCEFORTH_COMPILER_HPP

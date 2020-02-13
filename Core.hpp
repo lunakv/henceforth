@@ -5,6 +5,7 @@
 #include <memory>
 #include "Definition.hpp"
 #include "ArithmeticDefinitions.hpp"
+#include "CoreDefinitions.hpp"
 
 // includes all interpretable word definitions and provides a dictionary linking them to tokens
 DDRef GetCoreDict();
