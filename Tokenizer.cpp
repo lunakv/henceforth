@@ -4,17 +4,29 @@
 
 // returns a string containing all chars from current position to next occurrence of c (non-inclusive)
 std::string Tokenizer::GetUntil(char c) {
+    in.get();   // skip the space separating the previous token from wanted text
     std::string res;
     for (int r = in.get(); r != EOF && r != c; r = in.get()) {
-        res += toupper(static_cast<char>(r));
+        res += static_cast<char>(r);
     }
     return res;
 }
 
 // returns the next whitespace-separated word from input
 std::string Tokenizer::GetToken() {
+    int c = in.peek();
+    while (isspace(c) && !in.eof() && c != '\n') {
+        in.get();
+        c = in.peek();
+    }
+
+    if (c == '\n') {
+        in.get();
+        return "\n";
+    }
+
     std::string res;
-    in >> res;
+    in >> res;  // in is either on non-whitespace or on EOF
     return res; // returns empty string once input ends
 }
 
