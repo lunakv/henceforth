@@ -53,6 +53,10 @@ void Leave::Run(Stack &s, Stack &r, size_t &ip) const {
     ip = jmp;
 }
 
+void Unloop::Run(Stack &s, Stack &r, size_t &ip) const {
+    r.pop(); r.pop();
+}
+
 void PrintStr::Run(Stack &s, Stack &r, size_t &ip) const {
     std::cout << str << ' ';
 }
@@ -60,4 +64,8 @@ void PrintStr::Run(Stack &s, Stack &r, size_t &ip) const {
 void Recurse::Run(Stack &s, Stack &r, size_t &ip) const {
     size_t dummy_ip(0);
     def.Run(s, r, dummy_ip);
+}
+
+void Exit::Run(Stack &s, Stack &r, size_t &ip) const {
+    ip = def.size();
 }

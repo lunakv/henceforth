@@ -14,8 +14,10 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     else if (token == "LOOP") AddLoop(d, false);
     else if (token == "+LOOP") AddLoop(d, true);
     else if (token == "LEAVE") AddLeave(d);
+    else if (token == "UNLOOP") AddUnloop(d);
     else if (token == "RECURSE") AddRecurse(d);
     else if (token == ".\"") AddPrintStr(d);
+    else if (token == "EXIT") AddExit(d);
     else return false;
 
     return true;
@@ -137,6 +139,10 @@ void Compiler::AddLeave(CustomDefinition &d) {
     d.v.push_back(make_shared<Leave>());
 }
 
+void Compiler::AddUnloop(CustomDefinition &d) {
+    d.v.push_back(make_shared<Unloop>());
+}
+
 void Compiler::AddPrintStr(CustomDefinition &d) {
     string text = t.GetUntil('"');
     d.v.push_back(make_shared<PrintStr>(text));
@@ -144,4 +150,8 @@ void Compiler::AddPrintStr(CustomDefinition &d) {
 
 void Compiler::AddRecurse(CustomDefinition &d) {
     d.v.push_back(make_shared<Recurse>(d));
+}
+
+void Compiler::AddExit(CustomDefinition &d) {
+    d.v.push_back(make_shared<Exit>(d));
 }

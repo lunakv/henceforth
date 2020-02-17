@@ -40,6 +40,10 @@ class Leave : public Branching {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
+class Unloop : public Definition {
+public:
+    void Run(Stack &s, Stack &r, size_t &ip) const override;
+};
 class PrintStr : public Definition {
     const std::string str;
 public:
@@ -47,9 +51,15 @@ public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
 class Recurse : public Definition {
-    const Definition& def;  // a reference is used, since shared_ptr would cause a cyclic dependency
+    const Definition &def;  // a reference is used, since shared_ptr would cause a cyclic dependency
 public:
-    explicit Recurse(const Definition& def) : def(def) {}
+    explicit Recurse(const Definition &def) : def(def) {}
+    void Run(Stack &s, Stack &r, size_t &ip) const override;
+};
+class Exit : public Definition {
+    const CustomDefinition &def;
+public:
+    explicit Exit(const CustomDefinition &def) : def(def) {}
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
 #endif //HENCEFORTH_COMPILERDEFINITIONS_HPP

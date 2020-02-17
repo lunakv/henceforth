@@ -16,17 +16,29 @@ DefDict GetCoreDict() {
     d["<"] = std::make_shared<Less>();
     d[">"] = std::make_shared<More>();
     d["="] = std::make_shared<Eq>();
+    d["<>"] = std::make_shared<NotEq>();
     d["AND"] = std::make_shared<And>();
     d["OR"] = std::make_shared<Or>();
     d["XOR"] = std::make_shared<Xor>();
     d["MAX"] = std::make_shared<Max>();
     d["MIN"] = std::make_shared<Min>();
     d["WITHIN"] = std::make_shared<Within>();
+    d["1+"] = std::make_shared<AddOne>();
+    d["1-"] = std::make_shared<SubOne>();
+    d["2*"] = std::make_shared<Double>();
+    d["2/"] = std::make_shared<Half>();
+    d["0="] = std::make_shared<IsZero>();
+    d["0<"] = std::make_shared<IsNeg>();
+    d["NEGATE"] = std::make_shared<Negate>();
+    d["INVERT"] = std::make_shared<Invert>();
 
     d["DUP"] = std::make_shared<Dup>();
     d["DROP"] = std::make_shared<Drop>();
     d["."] = std::make_shared<Print>();
     d["CR"] = std::make_shared<Cr>();
+    d["SWAP"] = std::make_shared<Swap>();
+    d["OVER"] = std::make_shared<Over>();
+    d["DEPTH"] = std::make_shared<Depth>();
     return d;
 }
 
@@ -98,6 +110,10 @@ void Eq::Run(Stack &s, Stack &r, size_t &ip) const {
     BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a == b); });
 }
 
+void NotEq::Run(Stack &s, Stack &r, size_t &ip) const {
+    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a != b); } );
+}
+
 void And::Run(Stack &s, Stack &r, size_t &ip) const {
     BinOp(s, [](auto a, auto b) { return a & b; });
 }
@@ -128,6 +144,40 @@ void Within::Run(Stack &s, Stack &r, size_t &ip) const {
         s.push(static_cast<ptrdiff_t>(test >= lo || test <= hi));
 }
 
+void AddOne::Run(Stack &s, Stack &r, size_t &ip) const {
+    ++s.top();
+}
+
+void SubOne::Run(Stack &s, Stack &r, size_t &ip) const {
+    --s.top();
+}
+
+void Double::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.top() *= 2;
+}
+
+void Half::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.top() /= 2;
+}
+
+void IsZero::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto t = s.top(); s.pop();
+    s.push(t == 0);
+}
+
+void IsNeg::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto t = s.top(); s.pop();
+    s.push(t < 0);
+}
+
+void Negate::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.top() *= -1;
+}
+
+void Invert::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.top() = ~s.top();
+}
+
 void Dup::Run(Stack &s, Stack &r, size_t &ip) const {
     s.push(s.top());
 }
@@ -145,4 +195,20 @@ void Cr::Run(Stack &s, Stack &r, size_t &ip) const {
     std::cout << std::endl;
 }
 
-#pragma clang diagnostic pop
+void Swap::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto a = s.top(); s.pop();
+    auto b = s.top(); s.pop();
+    s.push(a);
+    s.push(b);
+}
+
+void Over::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto a = s.top(); s.pop();
+    auto b = s.top();
+    s.push(a);
+    s.push(b);
+}
+
+void Depth::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.push(s.size());
+}

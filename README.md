@@ -10,16 +10,17 @@ where $HF_DIR is the path to the cloned directory. The binary will then be compi
 
 ## Supported commands
 Henceforth supports the following words from the Forth CORE dictionary:
-- `+`, `-`, `*`, `/`, `MOD`, `/MOD`, `RSHIFT`, `LSHIFT`, `MAX`, `MIN`, `WITHIN`
+- `+`, `-`, `*`, `/`, `MOD`, `/MOD`, `RSHIFT`, `LSHIFT`
+- `1+`, `1-`, `2*`, `2/`, `0=`, `0<`
 - `TRUE`, `FALSE`
-- `<`, `>`, `=`
-- `AND`, `OR`, `XOR`
-- `DUP`, `DROP`, `.`, `CR` 
+- `<`, `>`, `=`, `<>`, `MAX`, `MIN`, `WITHIN`
+- `AND`, `OR`, `XOR`, `NEGATE`, `INVERT`
+- `DUP`, `DROP`, `.`, `CR`, `SWAP`, `OVER`, `DEPTH`
 - `:`, `;`, `\`
 
 In addition, Henceforth supports the following Forth words exclusively in the compilation environment:
 - `IF`, `ELSE`, `THEN`, `BEGIN`, `WHILE`, `REPEAT`, `AGAIN`
-- `DO`, `LOOP`, `+LOOP`, `LEAVE`
+- `DO`, `LOOP`, `+LOOP`, `LEAVE`, `UNLOOP`, `EXIT` 
 - `."`, `RECURSE`
 
 To find out more about the usage of the words listed above, see the [Forth standard](https://forth-standard.org/standard/core) website

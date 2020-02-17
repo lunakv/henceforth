@@ -15,6 +15,7 @@ public:
     void push(const ptrdiff_t &val) { s.push(val); }
     void push(ptrdiff_t &&val) { s.push(val); }
     [[nodiscard]] bool empty() const { return s.empty(); }
+    [[nodiscard]] size_t size() const { return s.size(); }
     void clear() { s = {}; }
 };
 

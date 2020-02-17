@@ -19,8 +19,10 @@ class Compiler {
     void AddDo(CustomDefinition &d);
     void AddLoop(CustomDefinition &d, bool plus);
     void AddLeave(CustomDefinition &d);
+    void AddUnloop(CustomDefinition &d);
     void AddPrintStr(CustomDefinition &d);
     void AddRecurse(CustomDefinition &d);
+    void AddExit(CustomDefinition &d);
 public:
     explicit Compiler(Tokenizer &t) : t(t) {};
     void AddDefinition(DefDict &dict);
