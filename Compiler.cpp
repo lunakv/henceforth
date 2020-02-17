@@ -32,15 +32,15 @@ void Compiler::AddDefinition(DefDict &dict) {
     string token = t.GetToken();
     for (; !token.empty() && token != ";"; token = t.GetToken()) {
         if (token == "\n") continue;
-
-        if (dict.count(token))
+        if (token == "(")
+            t.GetUntil(')');
+        else if (dict.count(token))
             def->v.push_back(dict.at(token));
         else if (Tokenizer::IsNumeric(token)) {
             auto con = make_shared<Const>(Tokenizer::GetNum(token));
             def->v.push_back(move(con));
         }
         else if (!AddCompileWord(*def, token)) {
-            c.clear();
             throw UnknownWord();
         }
     }
