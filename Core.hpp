@@ -6,7 +6,7 @@
 #include "Definition.hpp"
 
 // includes all interpretable word definitions and provides a dictionary linking them to tokens
-DDRef GetCoreDict();
+DefDict GetCoreDict();
 
 // Definitions for basic arithmetic functions.
 class Add : public Definition {

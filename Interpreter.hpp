@@ -9,7 +9,7 @@
 class Interpreter {
     Tokenizer t;
     Compiler c;
-    DDRef dict;
+    DefDict dict;
     Stack s, r;
     void ExecuteCommand(const std::string &token);
 public:

@@ -15,6 +15,7 @@ public:
     void push(const ptrdiff_t &val) { s.push(val); }
     void push(ptrdiff_t &&val) { s.push(val); }
     [[nodiscard]] bool empty() const { return s.empty(); }
+    void clear() { s = {}; }
 };
 
 // Abstract class for defining word semantics
@@ -22,6 +23,7 @@ class Definition {
 public:
     virtual void Compile(size_t res) {};
     virtual void Run(Stack &s, Stack &r, size_t &ip) const = 0;
+    virtual ~Definition() = default;
 };
 
 // User created definition - represented as a list of definitions to execute
@@ -43,5 +45,4 @@ public:
 };
 
 using DefDict = std::map<std::string, std::shared_ptr<Definition>>;
-using DDRef = std::shared_ptr<DefDict>;
 #endif //HENCEFORTH_DEFINITION_HPP

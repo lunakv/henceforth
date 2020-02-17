@@ -20,27 +20,29 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     return true;
 }
 
-void Compiler::AddDefinition(const DDRef &dict) {
+void Compiler::AddDefinition(DefDict &dict) {
     auto def = make_shared<CustomDefinition>();
+    c.clear(); // may be non-empty from previous bad definition
     string name = t.GetToken();
     string token = t.GetToken();
     for (; !token.empty() && token != ";"; token = t.GetToken()) {
         if (token == "\n") continue;
 
-        if (dict->count(token))
-            def->v.push_back(dict->at(token));
+        if (dict.count(token))
+            def->v.push_back(dict.at(token));
         else if (Tokenizer::IsNumeric(token)) {
             auto con = make_shared<Const>(Tokenizer::GetNum(token));
             def->v.push_back(move(con));
         }
         else if (!AddCompileWord(*def, token)) {
+            c.clear();
             throw UnknownWord();
         }
     }
 
     if (!c.empty()) throw BadDefinition(); // ensure all blocks are properly closed
 
-    (*dict)[name] = def;
+    dict[name] = def;
 }
 
 // items on the control-flow stack are converted between ptrdiff_t and size_t

@@ -27,9 +27,9 @@ void Interpreter::Run() {
 }
 
 void Interpreter::ExecuteCommand(const string &token) {
-    if (dict->count(token)) {
+    if (dict.count(token)) {
         size_t dummy_ip(0);
-        (*dict)[token]->Run(s, r, dummy_ip);
+        dict[token]->Run(s, r, dummy_ip);
     }
     else if (Tokenizer::IsNumeric(token)) {
         s.push(Tokenizer::GetNum(token));

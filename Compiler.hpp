@@ -22,7 +22,7 @@ class Compiler {
     void AddRecurse(CustomDefinition &d);
 public:
     explicit Compiler(Tokenizer &t) : t(t) {};
-    void AddDefinition(const DDRef &dict);
+    void AddDefinition(DefDict &dict);
 };
 
 #endif //HENCEFORTH_COMPILER_HPP
