@@ -8,6 +8,7 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     else if (token == "THEN") AddThen(d);
     else if (token == "BEGIN") AddBegin(d);
     else if (token == "REPEAT") AddRepeat(d);
+    else if (token == "AGAIN") AddAgain(d);
     else if (token == "WHILE") AddWhile(d);
     else if (token == "DO") AddDo(d);
     else if (token == "LOOP") AddLoop(d, false);
@@ -87,6 +88,13 @@ void Compiler::AddRepeat(CustomDefinition &d) {
     d[orig]->Compile(o_res); // Resolve While, giving it jump to Repeat
     d.v.push_back(make_shared<Repeat>());
     d[o_res]->Compile(dest); // Resolve the now added Repeat, giving it jump to Begin
+}
+
+void Compiler::AddAgain(CustomDefinition &d) {
+    size_t dest = c.top(); c.pop();
+    // AGAIN run-time semantics are identical to REPEAT's
+    d.v.push_back(make_shared<Repeat>());
+    d.v.back()->Compile(dest);
 }
 
 void Compiler::AddDo(CustomDefinition &d) {
