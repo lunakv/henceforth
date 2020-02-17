@@ -27,6 +27,11 @@ std::string Tokenizer::GetToken() {
 
     std::string res;
     in >> res;  // in is either on non-whitespace or on EOF
+    if (res == "\\") {  // ignore comments
+        SkipLine();
+        return "\n";
+    }
+
     return res; // returns empty string once input ends
 }
 

@@ -3,18 +3,19 @@
 using namespace std;
 
 void Interpreter::Run() {
+    cout << "Type 'bye' to exit." << endl;
     for (string token = t.GetToken(); !token.empty(); token = t.GetToken()) { // read all of input
         try {
             for (; token != "\n" && !token.empty(); token = t.GetToken()) {   // try block by line
-                if (token == "\\")                                            // line comments
-                    t.SkipLine();
-                else if (token == ":")                                        // enter compile mode
+                if (token == ":")                                             // enter compile mode
                     c.AddDefinition(dict);
+                else if (token == "bye")
+                    return;
                 else
                     ExecuteCommand(token);
             }
 
-            cout << " ok" << endl; // print confirmation iff whole line was successful
+            cout << "ok" << endl; // print confirmation iff whole line was successful
         }
         catch (const HenceforthException &e) {
             cout << endl           // display information about caught exception

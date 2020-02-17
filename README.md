@@ -4,9 +4,9 @@ This is Henceforth, a simple interpreter for a Forth-like stack-based language.
 ## Installation
 For compiling from the source, clone this repository and then run
 ```
-cd $HF_DIR && cmake . && make
+cd ${HF_DIR} && cmake . && make
 ```
-where $HF_DIR is the path to the cloned directory. The binary will then be compiled to `./henceforth`
+where `${HF_DIR}` is the path to the cloned directory. The binary will then be compiled to `./henceforth`
 
 ## Supported commands
 Henceforth supports the following words from the Forth CORE dictionary:
@@ -23,7 +23,7 @@ In addition, Henceforth supports the following Forth words exclusively in the co
 - `DO`, `LOOP`, `+LOOP`, `LEAVE`, `UNLOOP`, `I`, `J`
 - `."`, `RECURSE`, `EXIT` 
 
-To find out more about the usage of the words listed above, see the [Forth standard](https://forth-standard.org/standard/core) website
+To find out more about the usage of the words listed above, see the [Forth standard](https://forth-standard.org/standard/core) website.
 
 ## Differences from the Forth standard (or common Forth implementations)
 While Henceforth generally tries to adhere to the Forth standard, there are a few notable exceptions:
