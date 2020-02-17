@@ -25,10 +25,9 @@ In addition, Henceforth supports the following Forth words exclusively in the co
 
 To find out more about the usage of the words listed above, see the [Forth standard](https://forth-standard.org/standard/core) website.
 
-## Differences from the Forth standard (or common Forth implementations)
+## Differences from the Forth standard
 While Henceforth generally tries to adhere to the Forth standard, there are a few notable exceptions:
-- Henceforth only supports signed integers as a data type. No other data types are available for use on the stack. (Though technically, _flags_ and _do-sys_ are emulated using signed integers.) 
-- Words in Henceforth are case-sensitive. While this is actually standard compliant, common Forth parsers are mostly case-insensitive.
+- Henceforth only supports signed integers as a data type. No other data types are available for use on the stack. (Technically, _flags_ and _do-sys_ are emulated using signed integers.) 
 - Other than `\`, Henceforth doesn't support immediate words at the moment.
 
 ## Developer documentation

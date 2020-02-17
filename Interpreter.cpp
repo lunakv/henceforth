@@ -9,7 +9,7 @@ void Interpreter::Run() {
             for (; token != "\n" && !token.empty(); token = t.GetToken()) {   // try block by line
                 if (token == ":")                                             // enter compile mode
                     c.AddDefinition(dict);
-                else if (token == "bye")
+                else if (token == "BYE")
                     return;
                 else
                     ExecuteCommand(token);
