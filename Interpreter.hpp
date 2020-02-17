@@ -7,14 +7,12 @@
 #include "Compiler.hpp"
 
 class Interpreter {
-    Tokenizer t;
-    Compiler c;
     DefDict dict;
     Stack s, r;
     void ExecuteCommand(const std::string &token);
 public:
-    explicit Interpreter(std::istream &i) : t(i), c(t), dict(GetCoreDict()) {}
-    void Run();
+    explicit Interpreter() : dict(GetCoreDict()) {}
+    void Run(std::istream &in, bool quiet);
 };
 
 
