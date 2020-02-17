@@ -44,6 +44,14 @@ class Unloop : public Definition {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
+class I : public Definition {
+public:
+    void Run(Stack &s, Stack &r, size_t &ip) const override;
+};
+class J : public Definition {
+public:
+    void Run(Stack &s, Stack &r, size_t &ip) const override;
+};
 class PrintStr : public Definition {
     const std::string str;
 public:

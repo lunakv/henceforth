@@ -18,6 +18,7 @@ class Compiler {
     void AddWhile(CustomDefinition &d);
     void AddDo(CustomDefinition &d);
     void AddLoop(CustomDefinition &d, bool plus);
+    void AddIndex(CustomDefinition &d, bool i);
     void AddLeave(CustomDefinition &d);
     void AddUnloop(CustomDefinition &d);
     void AddPrintStr(CustomDefinition &d);

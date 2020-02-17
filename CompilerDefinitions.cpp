@@ -57,6 +57,18 @@ void Unloop::Run(Stack &s, Stack &r, size_t &ip) const {
     r.pop(); r.pop();
 }
 
+void I::Run(Stack &s, Stack &r, size_t &ip) const {
+    s.push(r.top());
+}
+
+void J::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto i1 = r.top(); r.pop();
+    auto l1 = r.top(); r.pop();
+    s.push(r.top());
+    r.push(l1);
+    r.push(i1);
+}
+
 void PrintStr::Run(Stack &s, Stack &r, size_t &ip) const {
     std::cout << str << ' ';
 }

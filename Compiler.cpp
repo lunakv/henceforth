@@ -15,6 +15,8 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     else if (token == "+LOOP") AddLoop(d, true);
     else if (token == "LEAVE") AddLeave(d);
     else if (token == "UNLOOP") AddUnloop(d);
+    else if (token == "I") AddIndex(d, true);
+    else if (token == "J") AddIndex(d, false);
     else if (token == "RECURSE") AddRecurse(d);
     else if (token == ".\"") AddPrintStr(d);
     else if (token == "EXIT") AddExit(d);
@@ -141,6 +143,13 @@ void Compiler::AddLeave(CustomDefinition &d) {
 
 void Compiler::AddUnloop(CustomDefinition &d) {
     d.v.push_back(make_shared<Unloop>());
+}
+
+void Compiler::AddIndex(CustomDefinition &d, bool i) {
+    if (i)
+        d.v.push_back(make_shared<I>());
+    else
+        d.v.push_back(make_shared<J>());
 }
 
 void Compiler::AddPrintStr(CustomDefinition &d) {

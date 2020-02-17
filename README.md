@@ -20,8 +20,8 @@ Henceforth supports the following words from the Forth CORE dictionary:
 
 In addition, Henceforth supports the following Forth words exclusively in the compilation environment:
 - `IF`, `ELSE`, `THEN`, `BEGIN`, `WHILE`, `REPEAT`, `AGAIN`
-- `DO`, `LOOP`, `+LOOP`, `LEAVE`, `UNLOOP`, `EXIT` 
-- `."`, `RECURSE`
+- `DO`, `LOOP`, `+LOOP`, `LEAVE`, `UNLOOP`, `I`, `J`
+- `."`, `RECURSE`, `EXIT` 
 
 To find out more about the usage of the words listed above, see the [Forth standard](https://forth-standard.org/standard/core) website
 
