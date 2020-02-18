@@ -35,7 +35,6 @@ To find out more about the usage of the words listed above, see the [Forth stand
 While Henceforth generally tries to adhere to the Forth standard, there are a few notable exceptions:
 - Henceforth only supports signed integers as a data type. No other data types are available for use on the stack. (Technically, _flags_ and _do-sys_ are emulated using signed integers.) 
 - Other than `\` and `(`, Henceforth doesn't support immediate words at the moment.
-- The `LOOP` word checks if the index is equal _or greater_ than the limit, rather than checking for strict equality. 
 
 ## Developer documentation
 Documentation for developers is available both as part of the source code itself and in the [Wiki](https://github.com/lunakv/henceforth/wiki).

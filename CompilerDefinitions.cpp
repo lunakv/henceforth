@@ -39,7 +39,7 @@ void CheckedDo::Run(Stack &s, Stack &r, size_t &ip) const {
 void Loop::Run(Stack &s, Stack &r, size_t &ip) const {
     auto index = r.top(); r.pop();
     ++index;
-    if (index >= r.top())
+    if (index == r.top())
         r.pop();
     else {
         r.push(index);
