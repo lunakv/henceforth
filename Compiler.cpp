@@ -10,7 +10,8 @@ bool Compiler::AddCompileWord(CustomDefinition &d, const std::string &token) {
     else if (token == "REPEAT") AddRepeat(d);
     else if (token == "AGAIN") AddAgain(d);
     else if (token == "WHILE") AddWhile(d);
-    else if (token == "DO") AddDo(d);
+    else if (token == "DO") AddDo(d, false);
+    else if (token == "?DO") AddDo(d, true);
     else if (token == "LOOP") AddLoop(d, false);
     else if (token == "+LOOP") AddLoop(d, true);
     else if (token == "LEAVE") AddLeave(d);
@@ -101,11 +102,14 @@ void Compiler::AddAgain(CustomDefinition &d) {
     d.v.back()->Compile(dest);
 }
 
-void Compiler::AddDo(CustomDefinition &d) {
+void Compiler::AddDo(CustomDefinition &d, bool checked) {
     c.push(d.size());  // the loop-sys has the following format (from the bottom):
     c.push(-1);  //         (1) Do's position, (2) -1, (3) positions of related Leaves, (4) -1
     c.push(-1);
-    d.v.push_back(make_shared<Do>());
+    if (checked)
+        d.v.push_back(make_shared<CheckedDo>());
+    else
+        d.v.push_back(make_shared<Do>());
 }
 
 void Compiler::AddLoop(CustomDefinition &d, bool plus) {
@@ -122,6 +126,7 @@ void Compiler::AddLoop(CustomDefinition &d, bool plus) {
         d.v.push_back(make_shared<PLoop>());
     else
         d.v.push_back(make_shared<Loop>());
+    d[i]->Compile(res); // set up jump for possible "?DO"
     d[res]->Compile(i); // set up (P)Loop's jump to Do's position
 }
 

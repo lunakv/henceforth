@@ -28,6 +28,10 @@ class Do : public Definition {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
+class CheckedDo : public Branching {
+public:
+    void Run(Stack &s, Stack &r, size_t &ip) const override;
+};
 class Loop : public Branching {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;

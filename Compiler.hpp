@@ -16,7 +16,7 @@ class Compiler {
     void AddRepeat(CustomDefinition &d);
     void AddAgain(CustomDefinition &d);
     void AddWhile(CustomDefinition &d);
-    void AddDo(CustomDefinition &d);
+    void AddDo(CustomDefinition &d, bool checked);
     void AddLoop(CustomDefinition &d, bool plus);
     void AddIndex(CustomDefinition &d, bool i);
     void AddLeave(CustomDefinition &d);

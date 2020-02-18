@@ -25,6 +25,17 @@ void Do::Run(Stack &s, Stack &r, size_t &ip) const {
     r.push(first);
 }
 
+void CheckedDo::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto first = s.top(); s.pop();
+    auto limit = s.top(); s.pop();
+    if (first == limit)
+        ip = jmp;
+    else {
+        r.push(limit);
+        r.push(first);
+    }
+}
+
 void Loop::Run(Stack &s, Stack &r, size_t &ip) const {
     auto index = r.top(); r.pop();
     ++index;
