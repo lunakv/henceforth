@@ -38,6 +38,7 @@ DefDict GetCoreDict() {
     d["CR"] = std::make_shared<Cr>();
     d["SWAP"] = std::make_shared<Swap>();
     d["OVER"] = std::make_shared<Over>();
+    d["ROT"] = std::make_shared<Rot>();
     d["DEPTH"] = std::make_shared<Depth>();
     return d;
 }
@@ -103,7 +104,7 @@ void More::Run(Stack &s, Stack &r, size_t &ip) const {
 }
 
 void Less::Run(Stack &s, Stack &r, size_t &ip) const {
-    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a > b); });
+    BinOp(s, [](auto a, auto b) { return static_cast<ptrdiff_t>(a < b); });
 }
 
 void Eq::Run(Stack &s, Stack &r, size_t &ip) const {
@@ -207,6 +208,15 @@ void Over::Run(Stack &s, Stack &r, size_t &ip) const {
     auto b = s.top();
     s.push(a);
     s.push(b);
+}
+
+void Rot::Run(Stack &s, Stack &r, size_t &ip) const {
+    auto three = s.top(); s.pop();
+    auto two = s.top(); s.pop();
+    auto one = s.top(); s.pop();
+    s.push(two);
+    s.push(three);
+    s.push(one);
 }
 
 void Depth::Run(Stack &s, Stack &r, size_t &ip) const {

@@ -120,7 +120,6 @@ void Compiler::AddLoop(CustomDefinition &d, bool plus) {
         d[i]->Compile(res);
         i = c.top(); c.pop();
     }
-    c.pop();  // remove the other enclosing -1
     i = c.top(); c.pop(); // get Do's position
     if (plus)
         d.v.push_back(make_shared<PLoop>());

@@ -152,6 +152,10 @@ class Over : public Definition {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;
 };
+class Rot : public Definition {
+public:
+    void Run(Stack &s, Stack &r ,size_t &ip) const override;
+};
 class Depth : public Definition {
 public:
     void Run(Stack &s, Stack &r, size_t &ip) const override;

@@ -4,10 +4,10 @@
 using namespace std;
 
 void Interpreter::Run(istream &in, bool quiet) {
-    cout << "Type 'bye' to exit." << endl;
+    if (!quiet)
+        cout << "Type 'bye' to exit." << endl;
     Tokenizer t(in);
     Compiler c(t);
-
     for (string token = t.GetToken(); !token.empty(); token = t.GetToken()) { // read all of input
         try {
             for (; token != "\n" && !token.empty(); token = t.GetToken()) {   // try block by line
@@ -20,7 +20,7 @@ void Interpreter::Run(istream &in, bool quiet) {
             }
 
             if (!quiet)
-                cout << "ok" << endl; // print confirmation iff whole line was successful
+                cout << " ok" << endl; // print confirmation iff whole line was successful
         }
         catch (const HenceforthException &e) {
             cout << endl           // display information about caught exception

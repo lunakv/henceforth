@@ -21,7 +21,7 @@ Henceforth supports the following words from the Forth CORE dictionary:
 - `TRUE`, `FALSE`
 - `<`, `>`, `=`, `<>`, `MAX`, `MIN`, `WITHIN`
 - `AND`, `OR`, `XOR`, `NEGATE`, `INVERT`
-- `DUP`, `DROP`, `.`, `CR`, `SWAP`, `OVER`, `DEPTH`
+- `DUP`, `DROP`, `.`, `CR`, `SWAP`, `OVER`, `ROT`, `DEPTH`
 - `:`, `;`, `\`, `(` 
 
 In addition, Henceforth supports the following Forth words exclusively in the compilation environment:
