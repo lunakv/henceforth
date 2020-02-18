@@ -27,9 +27,13 @@ std::string Tokenizer::GetToken() {
 
     std::string res;
     in >> res;  // in is either on non-whitespace or on EOF
-    if (res == "\\") {  // ignore comments
+    if (res == "\\") {  // ignore line comments
         SkipLine();
         return "\n";
+    }
+    while (res == "(") {  // ignore parenthesized comments
+        GetUntil(')');
+        res = GetToken();
     }
 
     for (auto & ch: res) ch = toupper(ch); // convert text to upper case

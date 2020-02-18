@@ -33,8 +33,6 @@ void Compiler::AddDefinition(DefDict &dict) {
     string token = t.GetToken();
     for (; !token.empty() && token != ";"; token = t.GetToken()) {
         if (token == "\n") continue;
-        if (token == "(")
-            t.GetUntil(')');
         else if (dict.count(token))
             def->v.push_back(dict.at(token));
         else if (Tokenizer::IsNumeric(token)) {
