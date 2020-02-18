@@ -59,7 +59,7 @@ void Compiler::AddIf(CustomDefinition &d) {
 }
 
 void Compiler::AddElse(CustomDefinition &d) {
-    size_t i = c.top(); c.pop();
+    auto i = static_cast<size_t>(c.top()); c.pop();
     size_t res = d.size();
     d.v.push_back(make_shared<Else>());
     d[i]->Compile(res); // resolve the If by giving it Else's position to jump to
@@ -67,7 +67,7 @@ void Compiler::AddElse(CustomDefinition &d) {
 }
 
 void Compiler::AddThen(CustomDefinition &d) {
-    size_t i = c.top(); c.pop();
+    auto i = static_cast<size_t>(c.top()); c.pop();
     d[i]->Compile(d.size()); // resolve the If/Else, giving it Then's position to jump to
     d.v.push_back(make_shared<Then>());
 }
@@ -78,15 +78,15 @@ void Compiler::AddBegin(CustomDefinition &d) {
 }
 
 void Compiler::AddWhile(CustomDefinition &d) {
-    size_t dest = c.top(); c.pop();
+    auto dest = static_cast<size_t>(c.top()); c.pop();
     c.push(d.size()); // Add While's position under the position of Begin
     c.push(dest);
     d.v.push_back(make_shared<If>()); // While is functionally identical to If
 }
 
 void Compiler::AddRepeat(CustomDefinition &d) {
-    size_t dest = c.top(); c.pop(); // Begin's position
-    size_t orig = c.top(); c.pop(); // While's position
+    auto dest = static_cast<size_t>(c.top()); c.pop(); // Begin's position
+    auto orig = static_cast<size_t>(c.top()); c.pop(); // While's position
     size_t o_res = d.size();
     d[orig]->Compile(o_res); // Resolve While, giving it jump to Repeat
     d.v.push_back(make_shared<Repeat>());
@@ -94,7 +94,7 @@ void Compiler::AddRepeat(CustomDefinition &d) {
 }
 
 void Compiler::AddAgain(CustomDefinition &d) {
-    size_t dest = c.top(); c.pop();
+    auto dest = static_cast<size_t>(c.top()); c.pop();
     // AGAIN run-time semantics are identical to REPEAT's
     d.v.push_back(make_shared<Repeat>());
     d.v.back()->Compile(dest);
@@ -124,7 +124,7 @@ void Compiler::AddLoop(CustomDefinition &d, bool plus) {
     else
         d.v.push_back(make_shared<Loop>());
     d[i]->Compile(res); // set up jump for possible "?DO"
-    d[res]->Compile(i); // set up (P)Loop's jump to Do's position
+    d[res]->Compile(static_cast<size_t>(i)); // set up (P)Loop's jump to Do's position
 }
 
 // LEAVE needs to find the nearest loop-sys, since it could be called e.g. inside an IF .. THEN

@@ -36,7 +36,7 @@ std::string Tokenizer::GetToken() {
         res = GetToken();
     }
 
-    for (auto & ch: res) ch = toupper(ch); // convert text to upper case
+    for (auto & ch: res) ch = static_cast<char>(toupper(ch)); // convert text to upper case
     return res; // returns empty string once input ends
 }
 
