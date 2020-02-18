@@ -3,11 +3,17 @@ This is Henceforth, a simple interpreter for a Forth-like stack-based language.
 
 ## Installation
 For compiling from the source, clone this repository and then run
-```
+```bash
 cd ${HF_DIR} && cmake . && make
 ```
 where `${HF_DIR}` is the path to the cloned directory. The binary will then be compiled to `./henceforth`
 
+## Usage
+```bash
+henceforth [-e] [file.fth ...]
+```
+
+Henceforth accepts any number of file names as arguments. It interprets all the files specified in order and then opens an interactive user shell on standard input. The interactive shell will not be spawned if the user supplies the `-e` option.
 ## Supported commands
 Henceforth supports the following words from the Forth CORE dictionary:
 - `+`, `-`, `*`, `/`, `MOD`, `/MOD`, `RSHIFT`, `LSHIFT`
