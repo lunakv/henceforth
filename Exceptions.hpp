@@ -25,4 +25,10 @@ class BadDefinition : public HenceforthException {
     }
 };
 
+class DivByZero : public HenceforthException {
+    [[nodiscard]] const char* what() const noexcept override {
+        return "Division by zero";
+    }
+};
+
 #endif //HENCEFORTH_EXCEPTIONS_HPP

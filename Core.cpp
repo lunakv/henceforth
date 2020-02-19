@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Core.hpp"
+#include "Exceptions.hpp"
 
 DefDict GetCoreDict() {
     DefDict d;
@@ -63,7 +64,10 @@ void Mul::Run(Stack &s, Stack &r, size_t &ip) const {
 }
 
 void Div::Run(Stack &s, Stack &r, size_t &ip) const {
-    BinOp(s, [](auto a, auto b) { return a/b; });
+    BinOp(s, [](auto a, auto b) {
+        if (!b) throw DivByZero();
+        return a/b;
+    });
 }
 
 void Mod::Run(Stack &s, Stack &r, size_t &ip) const {
@@ -73,6 +77,7 @@ void Mod::Run(Stack &s, Stack &r, size_t &ip) const {
 void DivMod::Run(Stack &s, Stack &r, size_t &ip) const {
     auto b = s.top(); s.pop();
     auto a = s.top(); s.pop();
+    if (!b) throw DivByZero();
     s.push(a % b);
     s.push(a / b);
 }
